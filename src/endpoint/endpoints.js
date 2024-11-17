@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5000/'
+const baseUrl = 'https://blog-app-backend-m66w.onrender.com/'
 
 const endpoint ={
     registration : `${baseUrl}userregister`,
