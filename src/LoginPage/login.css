@@ -1,0 +1,47 @@
+.logincontainer {
+    width: 80vw;
+    /* border: 1px solid; */
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    height: 100vh;
+    .loginform {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* border: 1px solid; */
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            /* border: 1px solid; */
+            width: 30vw;
+
+            p{
+                color:  blue;
+                cursor: pointer;
+            }
+
+            button {
+                padding: 10px;
+                background-color: #0069AD;
+                color: white;
+                font-size: 20px ;
+                border: none;
+                outline: none;
+            }
+            label {
+                font-size: 20px;
+                text-align: start;
+            }
+            input {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+        }
+    }
+    
+}

@@ -1,0 +1,9 @@
+.navbarcontainer {
+    /* border: 1px solid; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90vw;
+    margin: auto;
+    height: 50px;
+}
