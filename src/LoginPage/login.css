@@ -35,7 +35,8 @@
             }
             label {
                 font-size: 20px;
-                text-align: start;
+                text-align: start !important;
+                text-align: left !important;
             }
             input {
                 padding: 10px 20px;

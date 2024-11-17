@@ -50,12 +50,12 @@ const Homepage = () => {
                 <h1>BlogSphere</h1>
                 <div className='icons'>
                     <span><HomeFilled /> </span>
-                    <p> Home</p>
+                    <p onClick={() => navigate('/')}> Home</p>
                 </div>
 
                 <div className='icons'>
                     <span><QuestionCircleFilled /></span>
-                    <p>Search</p>
+                    <p onClick={() => navigate('/search')}>Search</p>
 
                 </div>
                 <div className='icons'>

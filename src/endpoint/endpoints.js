@@ -8,6 +8,9 @@ const endpoint ={
     myblog : `${baseUrl}getblog`,
     bloglike : `${baseUrl}bloglike`,
     blogcomment : `${baseUrl}blogcomment`,
+    afterRegisteration : `${baseUrl}afterRegisteration`,
+    allusers : `${baseUrl}allusers`,
+    folower : `${baseUrl}folower`,
 }
 
 module.exports = endpoint

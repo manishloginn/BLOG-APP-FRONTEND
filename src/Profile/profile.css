@@ -1,0 +1,39 @@
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* border: 1px solid; */
+
+    width: 100vw;
+    gap: 20px;
+    .inputdiv {
+       display: grid;
+       grid-template-columns: 6fr 6fr;
+        gap: 20px;
+    }
+}
+
+.folowers-section {
+    display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+padding: 20px;
+.folowe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid; */
+    padding: 0px 10px;
+    gap: 10px;
+}
+
+}
+
+.blogs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
