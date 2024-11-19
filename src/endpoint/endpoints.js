@@ -13,7 +13,7 @@ const endpoint ={
     allusers : `${baseUrl}allusers`,
     folower : `${baseUrl}folower`,
     addblog : `${baseUrl}userBlog`,
-    addblog : `${baseUrl}changes`,
+    // addblog : `${baseUrl}changes`,
 }
 
 module.exports = endpoint
