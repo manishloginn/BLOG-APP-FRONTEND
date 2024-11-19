@@ -94,7 +94,7 @@ const Myblog = () => {
                 message: 'comment success'
             })
         }
-        console.log(response)
+        // console.log(response)
 
     }
 
@@ -117,7 +117,12 @@ const Myblog = () => {
         e.preventDefault()
         try {
             const response = await axios.post(endpoint.addblog, post)
-            console.log(response.data)
+            if (response.status === 200) {
+                setpost('')
+                notification.success({
+                    message: 'blog post successfully'
+                })
+            }
         } catch (error) {
             console.log(error)
         }
@@ -151,7 +156,7 @@ const Myblog = () => {
                 myblog.map((blog, index) => (
                     <div key={index} className="blog-item">
                         <h2>{blog.title}</h2>
-                        <p>{blog.textBody}</p>
+                        <h3>{blog.textBody}</h3>
                         <small>Created by: {blog.userId.name} ({blog.userId.email})</small>
                         <p>Created at: {new Date(blog.createdAt).toLocaleDateString()}</p>
                         <div className="likecomment">
