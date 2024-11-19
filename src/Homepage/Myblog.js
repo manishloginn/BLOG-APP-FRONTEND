@@ -99,10 +99,9 @@ const Myblog = () => {
     }
 
     const [post, setpost] = useState({
-        textbody: '',
+        textBody: '',
         img: '',
         userId: decodetoken?.id
-
     })
 
     const handelChange = (e) => {
@@ -110,18 +109,18 @@ const Myblog = () => {
         setpost((prev) => ({
             ...prev,
             [name]: value,
-
         }))
     }
+    console.log(post)
 
     const handelSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response =  await axios.post(endpoint.addblog, post)
+            const response = await axios.post(endpoint.addblog, post)
             console.log(response.data)
         } catch (error) {
             console.log(error)
-        } 
+        }
     }
 
     console.log(myblog);
@@ -130,10 +129,21 @@ const Myblog = () => {
             <div className='createBlog'>
                 <form onSubmit={handelSubmit}>
                     <label htmlFor='textBody'>write post </label>
-                    <input type='text' name='textBody' value={post.textbody} onChange={handelChange}
-                        required />
+                    <input
+                        type="text"
+                        name="textBody"
+                        value={post.textbody}
+                        onChange={handelChange}
+                        required
+                    />
                     <label htmlFor='img'>image link</label>
-                    <input type='text' name='img' value={post.img} onChange={handelChange} required />
+                    <input
+                        type="text"
+                        name="img"
+                        value={post.img}
+                        onChange={handelChange}
+                        
+                    />
                     <button type='submit'>POST</button>
                 </form>
             </div>
