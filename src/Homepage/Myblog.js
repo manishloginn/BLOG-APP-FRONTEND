@@ -51,19 +51,19 @@ const Myblog = () => {
                     blogId: blogId,
                     userId: decodetoken?.id,
                 });
-           
-                if(response.status === 200){
-                    notification.success({
-                        message:"You like this post"
-                    })
-                    setmyblog((prevBlogs) =>
-                        prevBlogs.map((blog) =>
-                            blog._id === blogId
-                                ? { ...blog, likes: response.data.likes }
-                                : blog
-                        )
-                    );
-                }            
+
+            if (response.status === 200) {
+                notification.success({
+                    message: "You like this post"
+                })
+                setmyblog((prevBlogs) =>
+                    prevBlogs.map((blog) =>
+                        blog._id === blogId
+                            ? { ...blog, likes: response.data.likes }
+                            : blog
+                    )
+                );
+            }
         } catch (error) {
             console.error("Error adding like:", error);
         }
@@ -78,29 +78,65 @@ const Myblog = () => {
 
     const [comment, setcomment] = useState('')
 
-    const handelcommentsubmit = async ({e, id}) => {
+    const handelcommentsubmit = async ({ e, id }) => {
         e.preventDefault()
 
         const output = {
-            blogid:id,
-            comment:comment,
-            userid:decodetoken?.id
+            blogid: id,
+            comment: comment,
+            userid: decodetoken?.id
         }
 
-       const response = await  axios.post(endpoint.blogcomment, output )
-       if(response.status === 200){
-        setcomment('')
-        notification.success({
-            message:'comment success'
-        })
-       }
-       console.log(response)
+        const response = await axios.post(endpoint.blogcomment, output)
+        if (response.status === 200) {
+            setcomment('')
+            notification.success({
+                message: 'comment success'
+            })
+        }
+        console.log(response)
 
+    }
+
+    const [post, setpost] = useState({
+        textbody: '',
+        img: '',
+        userId: decodetoken?.id
+
+    })
+
+    const handelChange = (e) => {
+        const { name, value } = e.target
+        setpost((prev) => ({
+            ...prev,
+            [name]: value,
+
+        }))
+    }
+
+    const handelSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const response =  await axios.post(endpoint.addblog, post)
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        } 
     }
 
     console.log(myblog);
     return (
         <div className='myblogcontainer'>
+            <div className='createBlog'>
+                <form onSubmit={handelSubmit}>
+                    <label htmlFor='textBody'>write post </label>
+                    <input type='text' name='textBody' value={post.textbody} onChange={handelChange}
+                        required />
+                    <label htmlFor='img'>image link</label>
+                    <input type='text' name='img' value={post.img} onChange={handelChange} required />
+                    <button type='submit'>POST</button>
+                </form>
+            </div>
             {myblog && myblog.length > 0 ? (
                 myblog.map((blog, index) => (
                     <div key={index} className="blog-item">
@@ -133,7 +169,7 @@ const Myblog = () => {
                                 )}
                                 {
                                     commentToggles[blog._id] && (
-                                        <form onSubmit={(e) => handelcommentsubmit({e, id:blog._id})}>
+                                        <form onSubmit={(e) => handelcommentsubmit({ e, id: blog._id })}>
                                             <input type='text' placeholder='write new comment' onChange={(e) => setcomment(e.target.value)} value={comment} />
                                             <button id={blog.id} type='submit'> Comment</button>
                                         </form>

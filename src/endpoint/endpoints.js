@@ -11,6 +11,7 @@ const endpoint ={
     afterRegisteration : `${baseUrl}afterRegisteration`,
     allusers : `${baseUrl}allusers`,
     folower : `${baseUrl}folower`,
+    addblog : `${baseUrl}userBlog`,
 }
 
 module.exports = endpoint
