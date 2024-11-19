@@ -2,41 +2,46 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import endpoint from '../endpoint/endpoints';
 import Cookies from 'js-cookie'
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode';
 
 import "./search.css";
 import { notification } from 'antd';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const SearchPerson = () => {
     const [allUsers, setAllUsers] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [searchuser, setsearchuser] = useState([])
-    const token = Cookies.get("userDetail")
 
+
+    const navigate = useNavigate()
+
+    const token = Cookies.get("userDetail")
     let decodetoken = null;
     try {
         decodetoken = token ? jwtDecode(token) : null;
     } catch (error) {
         console.error("Invalid token:", error);
+        navigate('/login');
     }
 
-    console.log(decodetoken)
+    // console.log(decodetoken)
 
     useEffect(() => {
         const fetchAllUsers = async () => {
             try {
                 const response = await axios.get(endpoint.allusers);
                 if (response.status === 200) {
-                    setAllUsers(response.data.data); // Ensure data is an array of user objects
+                    setAllUsers(response.data.data);
                 }
             } catch (error) {
-                console.error("Error fetching users:", error);
+                console.error('Error fetching users:', error);
             }
         };
 
         fetchAllUsers();
     }, []);
+
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -51,31 +56,39 @@ const SearchPerson = () => {
     };
 
 
-    const sendfollow =  async(e) => {
-        
+    const sendfollow = async (e) => {
+
         const detail = {
-            folowerid:e.target.id,
-            userid:decodetoken.id
+            folowerid: e.target.id,
+            userid: decodetoken.id
         }
 
-        const response = await axios.post(endpoint.folower, detail)
-        console.log(response)
+        try {
+            const response = await axios.post(endpoint.folower, detail);
+            if (response.status === 200) {
+                notification.success({
+                    message: 'Follow successful!',
+                });
+                navigate('/profile'); 
+            }
+        } catch (error) {
+            
+            if (error.response && error.response.status === 400) {
+                notification.warning({
+                    message: error.response.data.message || 'Already following this user',
+                });
+            } else {
+                notification.error({
+                    message: 'Error following user',
+                    description: error.response?.data?.message || 'An unknown error occurred',
+                });
+            }
+        }
 
-        if(response.status === 200){
-            notification.success({
-                message:'follow success'
-            })
-            Navigate('/profile')
-        }
-        if(response.status === 400) {
-            notification.warning({
-                message:"allreaddy followed"
-            })
-        }
 
     }
 
-    // console.log(searchuser)
+
     return (
         <>
             <div className='searchbar'>

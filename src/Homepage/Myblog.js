@@ -12,9 +12,8 @@ const Myblog = () => {
     const token = Cookies.get("userDetail")
 
     const [myblog, setmyblog] = useState([])
-
+    const [comment, setcomment] = useState('')
     const [commentToggles, setCommentToggles] = useState({});
-
     let decodetoken = null;
     try {
         decodetoken = token ? jwtDecode(token) : null;
@@ -39,9 +38,10 @@ const Myblog = () => {
                 console.error("Error fetching user details:", error);
             }
         }
-
         fetmyblog()
     }, []);
+
+    console.log('hie')
 
 
     const handleLike = async (blogId) => {
@@ -51,11 +51,12 @@ const Myblog = () => {
                     blogId: blogId,
                     userId: decodetoken?.id,
                 });
-
             if (response.status === 200) {
+                // console.log(response)
                 notification.success({
-                    message: "You like this post"
-                })
+                    message: response.data.message || "You liked this post",
+                });
+
                 setmyblog((prevBlogs) =>
                     prevBlogs.map((blog) =>
                         blog._id === blogId
@@ -65,7 +66,10 @@ const Myblog = () => {
                 );
             }
         } catch (error) {
-            console.error("Error adding like:", error);
+            notification.error({
+                message: "Login Failed",
+                description: error.response?.data?.message || 'An error occurred, please try again later.',
+            })
         }
     };
 
@@ -76,7 +80,7 @@ const Myblog = () => {
         }));
     };
 
-    const [comment, setcomment] = useState('')
+
 
     const handelcommentsubmit = async ({ e, id }) => {
         e.preventDefault()
@@ -111,7 +115,7 @@ const Myblog = () => {
             [name]: value,
         }))
     }
-    console.log(post)
+    // console.log(post)
 
     const handelSubmit = async (e) => {
         e.preventDefault()
@@ -128,7 +132,6 @@ const Myblog = () => {
         }
     }
 
-    console.log(myblog);
     return (
         <div className='myblogcontainer'>
             <div className='createBlog'>
@@ -137,7 +140,7 @@ const Myblog = () => {
                     <input
                         type="text"
                         name="textBody"
-                        value={post.textbody}
+                        value={post.textBody}
                         onChange={handelChange}
                         required
                     />
@@ -147,7 +150,7 @@ const Myblog = () => {
                         name="img"
                         value={post.img}
                         onChange={handelChange}
-                        
+
                     />
                     <button type='submit'>POST</button>
                 </form>

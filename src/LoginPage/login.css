@@ -1,3 +1,31 @@
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader {
+    height: 100px;
+    width: 100px;
+    border: 10px solid black;
+    border-top: 10px solid red;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    /* margin: 0 auto; */
+
+
+    .loading {
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse;
+        height: 100vh;
+    }
+}
+
+
 .logincontainer {
     width: 80vw;
     /* border: 1px solid; */
@@ -7,10 +35,12 @@
     align-items: center;
     padding: 10px;
     height: 100vh;
+
     .loginform {
         display: flex;
         justify-content: center;
         align-items: center;
+
         /* border: 1px solid; */
         .form {
             display: flex;
@@ -20,8 +50,8 @@
             /* border: 1px solid; */
             width: 30vw;
 
-            p{
-                color:  blue;
+            p {
+                color: blue;
                 cursor: pointer;
             }
 
@@ -29,20 +59,22 @@
                 padding: 10px;
                 background-color: #0069AD;
                 color: white;
-                font-size: 20px ;
+                font-size: 20px;
                 border: none;
                 outline: none;
             }
+
             label {
                 font-size: 20px;
                 text-align: start !important;
                 text-align: left !important;
             }
+
             input {
                 padding: 10px 20px;
                 font-size: 16px;
             }
         }
     }
-    
+
 }

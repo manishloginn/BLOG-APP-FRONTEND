@@ -25,11 +25,10 @@ const Homepage = () => {
     const getuserdetail = async () => {
         if (!decodetoken) {
             console.error("No valid token decoded");
+            navigate('./login')
             return;
         }
         const { id } = decodetoken;
-
-        // console.log(id);
         try {
            
             const response = await axios.get(`${endpoint.userDetail}?id=${id}`);

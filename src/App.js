@@ -1,4 +1,4 @@
-import {  Suspense } from 'react';
+import {  Suspense, useEffect } from 'react';
 import './App.css';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import LoginPage from './LoginPage/LoginPage';
@@ -23,15 +23,18 @@ function App() {
 
   const token = Cookies.get('userDetail')
 
-  console.log(token)
   const navigate = useNavigate()
 
-  if(token === undefined){
-    notification.warning({
-      message:"please login first"
-    })
-    navigate('/Login')
-  }
+  useEffect(() => {
+
+    if(token === undefined){
+      notification.warning({
+        message:"please login first"
+      })
+      navigate('/Login')
+    }
+  }, [])
+
 
 
   return (
